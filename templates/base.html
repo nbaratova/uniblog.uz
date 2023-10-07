@@ -41,7 +41,10 @@
                     <div id="navbarCollapse" class="collapse navbar-collapse">
                         <ul class="nav nav-pills nav-justified">
                             <li role="presentation" {% if section == 'search' %} class="active"{% endif %}>
-                                <a href="{% url 'blogs:post_list' %}">Home</a>
+                                <a href="{% url 'blogs:home' %}">Home</a>
+                            </li>
+                            <li role="presentation" {% if section == 'match' %} class="active"{% endif %}>
+                                <a href="{% url 'blogs:post_list' %}">Posts</a>
                             </li>
                             <li role="presentation" {% if section == 'match' %} class="active"{% endif %}>
                                 <a href="{% url 'blogs:post_create' %}">Create Post</a>

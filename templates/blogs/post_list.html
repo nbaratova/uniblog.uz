@@ -1,11 +1,82 @@
 {% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} UniBlogs {% endblock title %}
 
 {% block content %}
-  <h1>Post List</h1>
-  <ul>
-    {% for post in posts %}
-      <li><a href="{% url 'blogs:post_detail' post.pk %}">{{ post.title }}</a></li>
-    {% endfor %}
-  </ul>
-  <a href="{% url 'blogs:post_create' %}">Create New Post</a>
-{% endblock %}
+
+    <!-- Content body -->
+    <div class="wrapper">
+        <div class="container">
+            <!-- Forms -->
+            <form action="{% url 'blogs:home' %}" method="GET" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="searchBar">
+                    <div class="col-lg-3 searchBarItem">
+                        {#                        {{ category_select_form }}#}
+                    </div>
+                    <div class="col-lg-3">
+                        <button type="submit" class="btn btn-primary longButton">Filter</button>
+                    </div>
+                </div>
+            </form>
+
+            <form action="{% url 'blogs:home' %}" method="GET" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="searchBar">
+                    <div class="col-lg-3 searchBarItem">
+                        <input name=searched_book_name class="form-control form-control-lg" type="text"
+                               placeholder="Search term ...">
+                    </div>
+                    <div class="col-lg-3">
+                        <button type="submit" class="btn btn-primary longButton">Search</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="clear"></div>
+            <hr>
+
+            <!-- Results list -->
+            <div id="book-list">
+                <!-- Results list -->
+                <div class="row">
+                    {#                    <h1>Post List</h1>#}
+                    {#                    <ul>#}
+                    {#                        {% for post in posts %}#}
+                    {#                            <li><a href="{% url 'blogs:post_detail' post.pk %}">{{ post.title }}</a></li>#}
+                    {#                        {% endfor %}#}
+                    {#                    </ul>#}
+                    {#                    <a href="{% url 'blogs:post_create' %}">Create New Post</a>#}
+                    {% for post in posts %}
+                        <div class="col-sm-6 col-md-3">
+                            <div class="thumbnail">
+                                <div class="thumbnail-wrapper"
+                                     style="background-image: url(../assets/img/book.jpg);  border-radius: 10px;">
+                                    <div class="customThumbnail">
+                                        <img src="{% static 'img/no_image.png' %}">
+                                    </div>
+                                </div>
+                                <div class="caption">
+                                    <a href="{% url 'blogs:post_detail' post.pk %}"><h4
+                                            class="text">{{ post.title|slice:":20" }}</h4></a>
+                                    <div class="text text-no-padding">
+                                        Category: {{ post.category|slice:":23" }}
+                                    </div>
+                                    <p class="text ">
+                                        Type: {{ post.post_type|slice:":22" }}
+                                    </p>
+                                    <a class="btn btn-primary noHover" role="button">{{ post.created_at }} </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+
+    </div></div>
+    </div>
+
+{% endblock content %}

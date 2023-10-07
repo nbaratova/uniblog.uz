@@ -166,7 +166,7 @@ footer .container-fluid {
 	width: 100%;
 	text-align: center;
 	padding-top: 10px;
-	background-color: #101a51;;
+	background-color: #02082a;;
 	min-height: 100;
 }
 
@@ -206,7 +206,7 @@ textarea.form-control {
 /*classes*/
 
 .navbar-inverse {
-	background-color: #101a51;
+	background-color: #02082a;
 	border: 0;
 	border-radius: 0%;
 }
