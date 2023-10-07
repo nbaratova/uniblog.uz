@@ -31,6 +31,27 @@ def transform_content(original_content, age_group='5-10'):
     return gpt_response["choices"][0]["message"]["content"]
 
 
+def transform_content_to_poem(original_content, age_group='5-10'):
+    # Define a prompt for GPT-3 based on the age group
+
+    gpt_response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo-16k",
+        messages=[
+            {
+                "role": "system",
+                "content": f"Transform this content into 12 rows poem for {age_group}:\n\n{original_content}",
+            },
+        ],
+        temperature=0,
+        max_tokens=2048,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0,
+    )
+
+    return gpt_response["choices"][0]["message"]["content"]
+
+
 class PostList(ListView):
     model = Post
     template_name = 'blogs/post_list.html'
@@ -78,47 +99,82 @@ class PostCreate(CreateView):
         # Get the original content from the form
         original_content = form.cleaned_data['content']
 
-        # Use OpenAI's GPT-3 or any other AI service to transform the content
-        transformed_content_5_10 = transform_content(original_content, age_group='5-10')  # Replace with actual transformation logic
-        transformed_content_10_20 = transform_content(original_content, age_group='10-20')  # Replace with actual transformation logic
-        transformed_content_20_plus = transform_content(original_content, age_group='20+')  # Replace with actual transformation logic
+        # Transform the content into storytelling for all age groups
+        transformed_content_5_10_storytelling = transform_content(original_content, age_group='5-10')
+        transformed_content_10_20_storytelling = transform_content(original_content, age_group='10-20')
+        transformed_content_20_plus_storytelling = transform_content(original_content, age_group='20+')
+
+        # Transform the content into poem for all age groups
+        transformed_content_5_10_poem = transform_content_to_poem(original_content, age_group='5-10')
+        transformed_content_10_20_poem = transform_content_to_poem(original_content, age_group='10-20')
+        transformed_content_20_plus_poem = transform_content_to_poem(original_content, age_group='20+')
 
         # Create the original post
         original_post = form.save(commit=False)
         original_post.save()
 
-        # Create and save a post for age group 5-10
-        post_5_10 = Post(
+        # Create and save posts for age group 5-10
+        post_5_10_storytelling = Post(
             title=form.cleaned_data['title'],
-            content=transformed_content_5_10,
-            age_group='5-10',  # Set age group to 5-10
-            post_type='Storytelling',  # Set post type to Storytelling
+            content=transformed_content_5_10_storytelling,
+            age_group='5-10',
+            post_type='Storytelling',
             image=form.cleaned_data['image'],
             category=form.cleaned_data['category'],
         )
-        post_5_10.save()
+        post_5_10_storytelling.save()
 
-        # Create and save a post for age group 10-20
-        post_10_20 = Post(
+        post_5_10_poem = Post(
             title=form.cleaned_data['title'],
-            content=transformed_content_10_20,
-            age_group='10-20',  # Set age group to 10-20
-            post_type='Storytelling',  # Set post type to Storytelling
+            content=transformed_content_5_10_poem,
+            age_group='5-10',
+            post_type='Poem',
             image=form.cleaned_data['image'],
             category=form.cleaned_data['category'],
         )
-        post_10_20.save()
+        post_5_10_poem.save()
 
-        # Create and save a post for age group 20+
-        post_20_plus = Post(
+        # Create and save posts for age group 10-20
+        post_10_20_storytelling = Post(
             title=form.cleaned_data['title'],
-            content=transformed_content_20_plus,
-            age_group='20+',  # Set age group to 20+
-            post_type='Storytelling',  # Set post type to Storytelling
+            content=transformed_content_10_20_storytelling,
+            age_group='10-20',
+            post_type='Storytelling',
             image=form.cleaned_data['image'],
             category=form.cleaned_data['category'],
         )
-        post_20_plus.save()
+        post_10_20_storytelling.save()
+
+        post_10_20_poem = Post(
+            title=form.cleaned_data['title'],
+            content=transformed_content_10_20_poem,
+            age_group='10-20',
+            post_type='Poem',
+            image=form.cleaned_data['image'],
+            category=form.cleaned_data['category'],
+        )
+        post_10_20_poem.save()
+
+        # Create and save posts for age group 20+
+        post_20_plus_storytelling = Post(
+            title=form.cleaned_data['title'],
+            content=transformed_content_20_plus_storytelling,
+            age_group='20+',
+            post_type='Storytelling',
+            image=form.cleaned_data['image'],
+            category=form.cleaned_data['category'],
+        )
+        post_20_plus_storytelling.save()
+
+        post_20_plus_poem = Post(
+            title=form.cleaned_data['title'],
+            content=transformed_content_20_plus_poem,
+            age_group='20+',
+            post_type='Poem',
+            image=form.cleaned_data['image'],
+            category=form.cleaned_data['category'],
+        )
+        post_20_plus_poem.save()
 
         return super().form_valid(form)
 
