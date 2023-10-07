@@ -20,7 +20,7 @@ class Post(models.Model):
         ('10-20', '10-20'),
         ('20+', '20+'),
     )
-    age_group = models.CharField(max_length=10, choices=AGE_CHOICES)
+    age_group = models.CharField(max_length=10, choices=AGE_CHOICES, default='20+')
 
     # Fields for categorizing by post type
     POST_TYPE_CHOICES = (
@@ -28,7 +28,9 @@ class Post(models.Model):
         ('Storytelling', 'Storytelling'),
         ('Poem', 'Poem'),
     )
-    post_type = models.CharField(max_length=20, choices=POST_TYPE_CHOICES)
+    post_type = models.CharField(max_length=20, choices=POST_TYPE_CHOICES, default='Post')
+
+    image = models.ImageField(upload_to='post_images/', blank=True, null=True)
 
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)
 

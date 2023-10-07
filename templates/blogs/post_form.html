@@ -12,7 +12,7 @@
                 <div class="col-lg-12 bar">
                     <h1 class="display-1">{% if post.pk %}Edit Post{% else %}Create Post{% endif %}</h1>
                     <hr>
-                    <form method="post">
+                    <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
                         {{ form|crispy }}
                         <button type="submit" class="btn btn-primary pull-right">{% if post.pk %}Update{% else %}Create{% endif %} Post</button>

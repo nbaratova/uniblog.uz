@@ -9,11 +9,17 @@
     <div class="wrapper">
         <div class="container">
             <!-- Forms -->
-            <form action="{% url 'blogs:home' %}" method="GET" enctype="multipart/form-data">
+            <form action="{% url 'blogs:post_list' %}" method="GET" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="searchBar">
                     <div class="col-lg-3 searchBarItem">
-                        {#                        {{ category_select_form }}#}
+                        {{ category_filter_form.category }}
+                    </div>
+                    <div class="col-lg-3 searchBarItem">
+                        {{ post_type_filter_form.post_type }}
+                    </div>
+                    <div class="col-lg-3 searchBarItem">
+                        {{ age_group_filter_form.age_group }}
                     </div>
                     <div class="col-lg-3">
                         <button type="submit" class="btn btn-primary longButton">Filter</button>
@@ -21,7 +27,7 @@
                 </div>
             </form>
 
-            <form action="{% url 'blogs:home' %}" method="GET" enctype="multipart/form-data">
+            <!-- <form action="{% url 'blogs:home' %}" method="GET" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="searchBar">
                     <div class="col-lg-3 searchBarItem">
@@ -32,7 +38,7 @@
                         <button type="submit" class="btn btn-primary longButton">Search</button>
                     </div>
                 </div>
-            </form>
+            </form> -->
 
             <div class="clear"></div>
             <hr>
@@ -54,7 +60,12 @@
                                 <div class="thumbnail-wrapper"
                                      style="background-image: url(../assets/img/book.jpg);  border-radius: 10px;">
                                     <div class="customThumbnail">
-                                        <img src="{% static 'img/no_image.png' %}">
+                                        <img 
+                                        src="{% if post.image %}
+                                            {{ post.image.url }}
+                                        {% else %}
+                                            {% static 'img/no_image.png' %}
+                                        {% endif %}">
                                     </div>
                                 </div>
                                 <div class="caption">
