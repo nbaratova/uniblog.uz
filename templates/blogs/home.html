@@ -1,0 +1,123 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Style CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/search_style.css' %}">
+
+    <title> {% block title %} UniBlog {% endblock title %} </title>
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'img/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/favicon-16x16.png' %}">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+</head>
+
+<body class="bg">
+<!-- Overlay -->
+<!-- <div class="overlay" id="overlay" onclick="resetBg()"></div> -->
+
+<!-- Container -->
+<div class="container">
+
+    <nav>
+        <ul class="main-nav d-flex flex-row navbar flex-nowrap p-0">
+        <span class="navbar-menu" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list"
+               viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                  d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+          </svg>
+        </span>
+            <li class="m-3 remove active"><a href="{% url 'blogs:post_list' %}">Home</a></li>
+            <li class="m-3 remove"><a href="{% url 'blogs:post_create' %}">Create Post</a></li>
+        </ul>
+    </nav>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="false">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">UniBlog</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                                     aria-orientation="vertical">
+                                                        <a class="nav-link active" href="{% url 'blogs:post_list' %}" role="tab">Home</a>
+                                                        <a class="nav-link" href="{% url 'blogs:post_create' %}" role="tab">Create Post</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Search Box -->
+    <div class="search-wrapper mx-auto d-flex flex-column justify-content-center">
+        <div class="search-logo">
+            <span>UniBlog</span>
+        </div>
+        <form action="#" method="post" class="input-group form-container">
+
+            <input autofocus id="search-input" type="text" name="book" class="form-control search-input"
+                   placeholder="Search term ..." autofocus="autofocus" autocomplete="off"
+                   onclick="setBgToDark()" onkeypress="">
+            {% csrf_token %}
+            <span class="input-group-btn">
+          <button type="submit" class="btn btn-search">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search"
+                 viewBox="0 0 16 16">
+              <path
+                      d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
+          </button>
+        </span>
+        </form>
+    </div>
+    <!-- ./End of search box -->
+
+</div>
+<!-- ./End of container -->
+
+<!-- Optional JavaScript -->
+<!-- Popper.js first, then Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+<script type="text/javascript">
+    function setBgToDark() {
+        document.getElementById("overlay").style.opacity = "0.5";
+    }
+
+    function resetBg() {
+        document.getElementById("overlay").style.opacity = "0";
+    }
+
+</script>
+</body>
+
+</html>

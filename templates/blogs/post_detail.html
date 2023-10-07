@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.content }}</p>
+  <p>Age Group: {{ post.get_age_group_display }}</p>
+  <p>Post Type: {{ post.get_post_type_display }}</p>
+  <p>Category: {{ post.category }}</p>
+  <a href="{% url 'blogs:post_update' post.pk %}">Edit</a>
+  <a href="{% url 'blogs:post_delete' post.pk %}">Delete</a>
+  <a href="{% url 'blogs:post_list' %}">Back to List</a>
+{% endblock %}
