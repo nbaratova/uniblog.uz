@@ -77,6 +77,9 @@
                                     <p class="text ">
                                         Type: {{ post.post_type|slice:":22" }}
                                     </p>
+                                    <p class="text text-no-padding">
+                                        Age Group: {{ post.age_group|slice:":22" }}
+                                    </p>
                                     <a class="btn btn-primary noHover" role="button">{{ post.created_at }} </a>
                                 </div>
                             </div>
