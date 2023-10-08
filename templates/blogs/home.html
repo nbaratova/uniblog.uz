@@ -39,12 +39,12 @@
                   d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
           </svg>
         </span>
-            <li class="m-3 remove active"><a href="{% url 'blogs:post_list' %}">Home</a></li>
+            <li class="m-3 remove active"><a href="{% url 'blogs:home' %}">Home</a></li>
             <li class="m-3 remove"><a href="{% url 'blogs:post_list' %}">Posts</a></li>
             <li class="m-3 remove"><a href="{% url 'blogs:post_create' %}">Create Post</a></li>
         </ul>
     </nav>
-
+¬
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
          aria-labelledby="staticBackdropLabel" aria-hidden="false">
@@ -61,7 +61,8 @@
                             <div class="col-md-3">
                                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
                                      aria-orientation="vertical">
-                                    <a class="nav-link active" href="{% url 'blogs:post_list' %}" role="tab">Home</a>
+                                    <a class="nav-link active" href="{% url 'blogs:home' %}" role="tab">Home</a>
+                                    <a class="nav-link" href="{% url 'blogs:post_list' %}" role="tab">Posts</a>
                                     <a class="nav-link" href="{% url 'blogs:post_create' %}" role="tab">Create Post</a>
                                 </div>
                             </div>
