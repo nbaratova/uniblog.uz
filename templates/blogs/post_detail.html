@@ -25,6 +25,8 @@
             <p> Category: {{ post.category }} </p>
             <p> Type: {{ post.post_type }} </p>
             <p> Age Group: {{ post.age_group }} </p>
+            <button id="textToSpeechButton" onclick="speakPostContent()" class="btn btn-primary pull-right">Read Aloud</button>
+            <p></p>
             <a href="{% url 'blogs:post_update' post.pk %}">Edit  |</a>
             <a href="{% url 'blogs:post_delete' post.pk %}">Delete | </a>
             <a href="{% url 'blogs:post_list' %}">Back to List</a>
@@ -45,7 +47,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>{{ post.content | linebreaks }} </td>
+                                <td id="post-content">{{ post.content | linebreaksbr  }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -55,4 +57,25 @@
     </div>
 
     <div class="clear"></div>
+
+    <script>
+        function speakPostContent() {
+            // Get the post content and convert it to text
+            var postContent = document.querySelector('#post-content').textContent;
+        
+            // Set the desired voice, pitch, rate, and volume
+            var voice = 'UK English Female'; // Change the voice as desired
+            var pitch = 0.9; // Adjust the pitch to make it sound more natural
+            var rate = 0.85; // Adjust the rate to slow down the speech for storytelling
+            var volume = 1.0; // Adjust the volume as needed (1.0 is the default)
+        
+            // Use responsiveVoice to speak the content with the specified parameters
+            responsiveVoice.speak(postContent, voice, {
+                pitch: pitch,
+                rate: rate,
+                volume: volume
+            });
+        }
+        </script>
+        
 {% endblock content %}
